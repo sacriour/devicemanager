@@ -1,8 +1,8 @@
-device_name,device_type,device_status,serial_number,device_location,device_holder
-test123,Laptop,Active,124987654235346QD,Madrid,Shabab
-MSI monitor,Other,Maintenance,1432566426RTG4,Budapest,Mehdi
-Iphone 16,Smartphone,Active,9182734645EZF,Budapest,Manager 4
-Apple Adapter ,Other,Inactive,62345235GFS1,London,Mehdi
-Apple Adapter ,Other,Inactive,62345QZD235GFS1,London,Mehdi
-HDSAD,Laptop,Active,ASFDGGDAGA,London,sadafsa
-mehdi's laptop,Laptop,Active,242354362,Budapest,Mehdi
+device_name,device_type,device_status,serial_number,device_location,device_holder,value
+test123,Laptop,Active,124987654235346QD,Madrid,Shabab,
+MSI monitor,Other,Maintenance,1432566426RTG4,Budapest,Mehdi,
+Iphone 16,Smartphone,Active,9182734645EZF,Budapest,Manager 4,1000EUR
+Apple Adapter ,Other,Inactive,62345235GFS1,London,Mehdi,
+Apple Adapter ,Other,Inactive,62345QZD235GFS1,London,Mehdi,
+HDSAD,Laptop,Active,ASFDGGDAGA,London,sadafsa,500USD
+mehdi's laptop,Laptop,Active,242354362,Budapest,Mehdi,800 EUR

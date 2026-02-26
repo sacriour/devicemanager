@@ -32,7 +32,7 @@ class CSVStorage:
 
     def save_all(self, device_mgr):
         self.save('devices.csv', [d.to_dict() for d in device_mgr.list_devices()],
-                  ['device_name','device_type','device_status','serial_number','device_location','device_holder'])
+                  ['device_name','device_type','device_status','serial_number','device_location','device_holder','value'])
         
 
     def load_all(self, device_mgr):
@@ -41,9 +41,10 @@ class CSVStorage:
             for r in device_rows:
                 try:
                     serial_number = str(r['serial_number'])
+                    value = r.get('value', "")
                     device_mgr.create_device(r['device_name'], devices.DeviceType(r['device_type']),
                                               devices.DeviceStatus(r['device_status']), serial_number,
-                                              devices.Device_location(r['device_location']), r['device_holder'])
+                                              devices.Device_location(r['device_location']), r['device_holder'], value)
                 except exceptions.DeviceManagerError as e:
                     print('Error loading device:', e)
 

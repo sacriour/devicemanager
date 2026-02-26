@@ -9,12 +9,12 @@ class DeviceManager:
         self.devices = {}
 
     def create_device(self, device_name: str, device_type: devices.DeviceType, device_status: devices.DeviceStatus,
-                      serial_number: str, device_location: devices.Device_location, device_holder: str):
+                      serial_number: str, device_location: devices.Device_location, device_holder: str, value: str = ""):
         serial_number = str(serial_number)
         """Create a new device and add it to the storage."""
         if serial_number in self.devices:
             raise exceptions.DeviceAlreadyExistsError(f"Device with serial number {serial_number} already exists.")
-        device = devices.Device(device_name, device_type, device_status, serial_number, device_location, device_holder)
+        device = devices.Device(device_name, device_type, device_status, serial_number, device_location, device_holder, value)
         self.devices[serial_number] = device
         return device
         

@@ -21,7 +21,7 @@ class DeviceManagerGUI:
 
     def create_widgets(self):
         # Device list
-        self.tree = ttk.Treeview(self.root, columns=("Name", "Type", "Status", "Serial", "Location", "Holder"), show="headings")
+        self.tree = ttk.Treeview(self.root, columns=("Name", "Type", "Status", "Serial", "Location", "Holder", "Value"), show="headings")
         for col in self.tree["columns"]:
             self.tree.heading(col, text=col)
             self.tree.column(col, width=120)
@@ -41,7 +41,7 @@ class DeviceManagerGUI:
             self.tree.delete(row)
         for d in self.device_mgr.list_devices():
             dev = d.to_dict()
-            self.tree.insert("", tk.END, values=(dev["device_name"], dev["device_type"], dev["device_status"], dev["serial_number"], dev["device_location"], dev["device_holder"]))
+            self.tree.insert("", tk.END, values=(dev["device_name"], dev["device_type"], dev["device_status"], dev["serial_number"], dev["device_location"], dev["device_holder"], dev["value"]))
 
     def add_device(self):
         try:
@@ -153,6 +153,11 @@ class DeviceManagerGUI:
         holder_entry = tk.Entry(dialog, textvariable=holder_var)
         add_row(5, "Device Holder", holder_entry)
 
+        # Value
+        value_var = tk.StringVar(value=getattr(device, 'value', ''))
+        value_entry = tk.Entry(dialog, textvariable=value_var)
+        add_row(6, "Value (Price + Currency)", value_entry)
+
         # Buttons
         def on_ok():
             try:
@@ -162,6 +167,7 @@ class DeviceManagerGUI:
                 result['serial_number'] = serial_var.get()
                 result['device_location'] = devices.Device_location(location_var.get())
                 result['device_holder'] = holder_var.get()
+                result['value'] = value_var.get()
                 dialog.destroy()
             except Exception as e:
                 messagebox.showerror("Error", f"Invalid input: {e}", parent=dialog)
@@ -171,7 +177,7 @@ class DeviceManagerGUI:
             dialog.destroy()
 
         btn_frame = tk.Frame(dialog)
-        btn_frame.grid(row=6, column=0, columnspan=2, pady=10)
+        btn_frame.grid(row=7, column=0, columnspan=2, pady=10)
         tk.Button(btn_frame, text="OK", width=10, command=on_ok).pack(side=tk.LEFT, padx=5)
         tk.Button(btn_frame, text="Cancel", width=10, command=on_cancel).pack(side=tk.LEFT, padx=5)
 

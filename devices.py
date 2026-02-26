@@ -37,15 +37,17 @@ class Device:
     serial_number: str
     device_location: Device_location
     device_holder: str
+    value: str
 
     def __init__(self, device_name: str, device_type: DeviceType, device_status: DeviceStatus,
-                 serial_number: str, device_location: Device_location, device_holder: str):
+                 serial_number: str, device_location: Device_location, device_holder: str, value: str = ""):
         self.device_name = device_name
         self.device_type = device_type
         self.device_status = device_status
         self.serial_number = serial_number
         self.device_location = device_location
         self.device_holder = device_holder
+        self.value = value
 
     def to_dict(self):
         """Convert the device object to a dictionary."""
@@ -55,5 +57,6 @@ class Device:
             "device_status": self.device_status.value,
             "serial_number": self.serial_number,
             "device_location": self.device_location.value,
-            "device_holder": self.device_holder
+            "device_holder": self.device_holder,
+            "value": self.value
         }
