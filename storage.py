@@ -40,8 +40,9 @@ class CSVStorage:
         if device_rows:
             for r in device_rows:
                 try:
+                    serial_number = str(r['serial_number'])
                     device_mgr.create_device(r['device_name'], devices.DeviceType(r['device_type']),
-                                              devices.DeviceStatus(r['device_status']), r['serial_number'],
+                                              devices.DeviceStatus(r['device_status']), serial_number,
                                               devices.Device_location(r['device_location']), r['device_holder'])
                 except exceptions.DeviceManagerError as e:
                     print('Error loading device:', e)

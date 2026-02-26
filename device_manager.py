@@ -10,6 +10,7 @@ class DeviceManager:
 
     def create_device(self, device_name: str, device_type: devices.DeviceType, device_status: devices.DeviceStatus,
                       serial_number: str, device_location: devices.Device_location, device_holder: str):
+        serial_number = str(serial_number)
         """Create a new device and add it to the storage."""
         if serial_number in self.devices:
             raise exceptions.DeviceAlreadyExistsError(f"Device with serial number {serial_number} already exists.")
@@ -19,27 +20,36 @@ class DeviceManager:
         
 
     def read_device(self, serial_number: str):
+        serial_number = str(serial_number)
         """Read a device from the storage."""
         if serial_number not in self.devices:
             raise exceptions.DeviceNotFoundError(f"Device with serial number {serial_number} not found.")
         return self.devices[serial_number]
 
     def update_device(self, serial_number: str, **kwargs):
+        serial_number = str(serial_number)
         """Update an existing device."""
         if serial_number not in self.devices:
             raise exceptions.DeviceNotFoundError(f"Device with serial number {serial_number} not found.")
         device = self.devices[serial_number]
+        new_serial_number = serial_number
         for key, value in kwargs.items():
-            if hasattr(device, key) and key != "serial_number" :
+            if key == "serial_number":
+                value = str(value)
+                if value != serial_number:
+                    new_serial_number = value
+            if hasattr(device, key) and key != "serial_number":
                 setattr(device, key, value)
             elif key == "serial_number" and value != serial_number:
                 setattr(device, key, value)
-                
-            
             else:
                 raise exceptions.ValidationError(f"Invalid attribute {key} for device.")
-        return device 
+        # If serial number changed, update the dictionary key
+        if new_serial_number != serial_number:
+            self.devices[new_serial_number] = self.devices.pop(serial_number)
+        return device
     def delete_device(self, serial_number: str):
+        serial_number = str(serial_number)
         """Delete a device from the storage."""
         if serial_number not in self.devices:
             raise exceptions.DeviceNotFoundError(f"Device with serial number {serial_number} not found.")
